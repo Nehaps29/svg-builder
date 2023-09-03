@@ -11,8 +11,13 @@ const questions = [ {
   },
   {
     type: 'input',
+    name: 'textcolor',
+    message: 'Enter text color',
+  },
+  {
+    type: 'input',
     name: 'color',
-    message: 'Enter color',
+    message: 'Enter shape color',
   },
   {
     type: 'list',
@@ -28,20 +33,12 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
-  /*inquirer
-  .prompt(questions)
-  .then((answers) => {
-    const htmlPageContent = generateHTML(answers);
-
-    fs.writeFile('index.html', htmlPageContent, (err) =>
-      err ? console.log(err) : console.log('Successfully created index.html!')
-    );
-  });*/
 
   inquirer
   .prompt(questions)
   .then((answers) => {
-    writeToFile('sample.svg', whichFunction({...answers}));/////not sure what to call?
+    if (answers.userShape === 'circle')
+    writeToFile('sample.svg', Circle(color,text,textcolor));/////not sure what to call circle function constructor?
   });
 
 }
