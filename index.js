@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./lib/shapes.js');
+const { Circle, Triangle, Square } = require('./lib/shapes.js');
 const path = require('path');
 // TODO: Create an array of questions for user input
 const questions = [ {
@@ -28,7 +28,8 @@ const questions = [ {
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-  return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+  const svgString = data.render();
+  return fs.writeFileSync(path.join(process.cwd(), fileName), svgString);
 }
 
 // TODO: Create a function to initialize app
@@ -37,8 +38,21 @@ function init() {
   inquirer
   .prompt(questions)
   .then((answers) => {
-    if (answers.userShape === 'circle')
-    writeToFile('sample.svg', Circle(color,text,textcolor));/////not sure what to call circle function constructor?
+    let shapeObj = '';
+    if (answers.userShape === 'circle'){
+      shapeObj = new Circle (answers.color,answers.text, answers.textcolor);
+    }
+    else if (answers.userShape === 'triangle'){
+      shapeObj = new Triangle (answers.color,answers.text, answers.textcolor);
+   }
+   else if (answers.userShape === 'square'){
+      shapeObj = new Square (answers.color,answers.text, answers.textcolor);
+   }
+   else {
+    console.log("Please select valid shape");
+   }
+   console.log(shapeObj);
+   writeToFile('sample.svg', shapeObj);
   });
 
 }
