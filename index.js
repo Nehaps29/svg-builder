@@ -28,7 +28,9 @@ const questions = [ {
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-  const svgString = data.render();
+  const svgString = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  ${data.render()}
+  ${data.textRender()} </svg>`
   return fs.writeFileSync(path.join(process.cwd(), fileName), svgString);
 }
 
